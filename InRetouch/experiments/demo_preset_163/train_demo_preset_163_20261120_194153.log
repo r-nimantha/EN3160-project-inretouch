@@ -1,0 +1,151 @@
+2026-11-20 19:41:53,734 INFO: 
+                ____                _       _____  ____
+               / __ ) ____ _ _____ (_)_____/ ___/ / __ \
+              / __  |/ __ `// ___// // ___/\__ \ / /_/ /
+             / /_/ // /_/ /(__  )/ // /__ ___/ // _, _/
+            /_____/ \__,_//____//_/ \___//____//_/ |_|
+     ______                   __   __                 __      __
+    / ____/____   ____   ____/ /  / /   __  __ _____ / /__   / /
+   / / __ / __ \ / __ \ / __  /  / /   / / / // ___// //_/  / /
+  / /_/ // /_/ // /_/ // /_/ /  / /___/ /_/ // /__ / /<    /_/
+  \____/ \____/ \____/ \____/  /_____/\____/ \___//_/|_|  (_)
+    
+Version Information: 
+	BasicSR: 1.0.0+unknown
+	PyTorch: 2.3.1+cpu
+	TorchVision: 0.18.1+cpu
+2026-11-20 19:41:53,734 INFO: 
+  name: demo_preset_163
+  model_type: CNNINRSplitWindModel
+  scale: 1
+  num_gpu: 0
+  manual_seed: 42
+  datasets:[
+    train:[
+      name: INR_Train
+      type: INRTrainDataset
+      style_natural: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\natural\\a0081-kme_106.jpg']
+      style_output: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\Presets\\Preset_163\\a0081-kme_106.jpg']
+      sample_rate: 1
+      window_size: 12
+      Windows_batch_size: 484
+      io_backend:[
+        type: disk
+      ]
+      phase: train
+      scale: 1
+      samples_batch_size: 69696
+    ]
+    val:[
+      name: INR_Inference
+      type: INRInferenceDataset
+      inp_natural: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_163\input
+      io_backend:[
+        type: disk
+      ]
+      inp_gt: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_163\ground_truth
+      phase: val
+      scale: 1
+    ]
+  ]
+  network_g:[
+    type: CNNDWSplitSiren
+    n_input_p: 2
+    n_input_s: 3
+    n_output_dims: 3
+    sin_w: 1
+    n_neurons: 64
+    n_hidden_p: 1
+    n_hidden_s: 1
+    n_hidden_m: 1
+    use_skip: True
+  ]
+  path:[
+    pretrain_network_g: None
+    strict_load_g: True
+    resume_state: None
+    root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch
+    experiments_root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163
+    models: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\models
+    training_states: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\training_states
+    log: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163
+    visualization: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\visualization
+  ]
+  train:[
+    optim_g:[
+      type: AdamW
+      lr: 0.01
+      weight_decay: [0.1, 0.0001, 0.001]
+      betas: [0.9, 0.9]
+    ]
+    scheduler:[
+      type: TrueCosineAnnealingLR
+      T_max: 1000
+      eta_min: 0.0001
+    ]
+    total_iter: 1000
+    warmup_iter: -1
+    pixel_opt:[
+      type: L1Loss
+      loss_weight: 1
+      reduction: mean
+    ]
+    resume_train: False
+  ]
+  val:[
+    val_freq: 10000.0
+    save_img: True
+    metrics:[
+      psnr:[
+        type: calculate_psnr
+        crop_border: 0
+        test_y_channel: False
+      ]
+      ssim:[
+        type: calculate_ssim
+        crop_border: 0
+        test_y_channel: False
+      ]
+    ]
+  ]
+  logger:[
+    print_freq: 200
+    save_checkpoint: True
+    use_tb_logger: False
+    wandb:[
+      project: None
+      resume_id: None
+    ]
+  ]
+  dist_params:[
+    backend: nccl
+    port: 29500
+  ]
+  is_train: True
+  dist: False
+  rank: 0
+  world_size: 1
+
+2026-11-20 19:41:53,735 INFO: Dataset INRTrainDataset - INR_Train is created.
+2026-11-20 19:41:53,735 INFO: Number of train images/folders in INR_Train: 1
+2026-11-20 19:41:53,735 INFO: Dataset INRInferenceDataset - INR_Inference is created.
+2026-11-20 19:41:53,735 INFO: Number of val images/folders in INR_Inference: 9
+2026-11-20 19:41:54,683 INFO: Model [CNNINRSplitWindModel] is created.
+2026-11-20 19:41:54,683 INFO: Start training for style:  Before Edit: a0081-kme_106, and After Edit : a0081-kme_106 for iter number: 1000
+2026-11-20 19:42:20,909 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     200, lr:(9.064e-03,)] [eta: 0:01:48, l_pix: 3.8777e-02 
+2026-11-20 19:42:46,645 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     400, lr:(6.594e-03,)] [eta: 0:01:19, l_pix: 3.2015e-02 
+2026-11-20 19:43:12,518 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     600, lr:(3.535e-03,)] [eta: 0:00:52, l_pix: 3.0742e-02 
+2026-11-20 19:44:06,537 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     800, lr:(1.055e-03,)] [eta: 0:00:33, l_pix: 2.8849e-02 
+2026-11-20 19:44:39,699 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:   1,000, lr:(1.000e-04,)] [eta: 0:00:00, l_pix: 2.7720e-02 
+2026-11-20 19:44:39,880 INFO: Saving model for for style: Before Edit: a0081-kme_106, and After Edit : a0081-kme_106 for iter number: 1000
+2026-11-20 19:44:41,713 INFO: Validation a0001-jmac_DSC1459, 		 # psnr: 19.8469	 # ssim: 0.8890
+2026-11-20 19:44:43,575 INFO: Validation a0004-jmac_MG_1384, 		 # psnr: 19.5147	 # ssim: 0.6723
+2026-11-20 19:44:45,458 INFO: Validation a0017-050710_031618__MG_3496, 		 # psnr: 15.3010	 # ssim: 0.3553
+2026-11-20 19:44:47,356 INFO: Validation a0020-jmac_MG_6225, 		 # psnr: 18.9967	 # ssim: 0.7795
+2026-11-20 19:44:49,250 INFO: Validation a0021-07-11-28-at-09h22m57s-_MG_7427, 		 # psnr: 18.8115	 # ssim: 0.7185
+2026-11-20 19:44:51,186 INFO: Validation a0041-IMG_4972, 		 # psnr: 23.7559	 # ssim: 0.7016
+2026-11-20 19:44:53,068 INFO: Validation a0045-20050320_081337__E6B1177, 		 # psnr: 20.0911	 # ssim: 0.7994
+2026-11-20 19:44:54,962 INFO: Validation a0050-_DSC0006, 		 # psnr: 25.2969	 # ssim: 0.8467
+2026-11-20 19:44:56,827 INFO: Validation a0063-IMG_4185, 		 # psnr: 21.8858	 # ssim: 0.6445
+2026-11-20 19:44:56,827 INFO: End of training. Time consumed: 0:03:02
+2026-11-20 19:44:56,827 INFO: Final Results, 		 # psnr: 20.3889	 # ssim: 0.7119

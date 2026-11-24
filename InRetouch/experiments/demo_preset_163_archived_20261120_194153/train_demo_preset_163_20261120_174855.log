@@ -1,0 +1,151 @@
+2026-11-20 17:48:55,922 INFO: 
+                ____                _       _____  ____
+               / __ ) ____ _ _____ (_)_____/ ___/ / __ \
+              / __  |/ __ `// ___// // ___/\__ \ / /_/ /
+             / /_/ // /_/ /(__  )/ // /__ ___/ // _, _/
+            /_____/ \__,_//____//_/ \___//____//_/ |_|
+     ______                   __   __                 __      __
+    / ____/____   ____   ____/ /  / /   __  __ _____ / /__   / /
+   / / __ / __ \ / __ \ / __  /  / /   / / / // ___// //_/  / /
+  / /_/ // /_/ // /_/ // /_/ /  / /___/ /_/ // /__ / /<    /_/
+  \____/ \____/ \____/ \____/  /_____/\____/ \___//_/|_|  (_)
+    
+Version Information: 
+	BasicSR: 1.0.0+unknown
+	PyTorch: 2.3.1+cpu
+	TorchVision: 0.18.1+cpu
+2026-11-20 17:48:55,922 INFO: 
+  name: demo_preset_163
+  model_type: CNNINRSplitWindModel
+  scale: 1
+  num_gpu: 0
+  manual_seed: 42
+  datasets:[
+    train:[
+      name: INR_Train
+      type: INRTrainDataset
+      style_natural: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\natural\\a0075-jn_20080814_New_York_City_042.jpg']
+      style_output: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\Presets\\Preset_163\\a0075-jn_20080814_New_York_City_042.jpg']
+      sample_rate: 1
+      window_size: 12
+      Windows_batch_size: 484
+      io_backend:[
+        type: disk
+      ]
+      phase: train
+      scale: 1
+      samples_batch_size: 69696
+    ]
+    val:[
+      name: INR_Inference
+      type: INRInferenceDataset
+      inp_natural: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_163\input
+      io_backend:[
+        type: disk
+      ]
+      inp_gt: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_163\ground_truth
+      phase: val
+      scale: 1
+    ]
+  ]
+  network_g:[
+    type: CNNDWSplitSiren
+    n_input_p: 2
+    n_input_s: 3
+    n_output_dims: 3
+    sin_w: 1
+    n_neurons: 64
+    n_hidden_p: 1
+    n_hidden_s: 1
+    n_hidden_m: 1
+    use_skip: True
+  ]
+  path:[
+    pretrain_network_g: None
+    strict_load_g: True
+    resume_state: None
+    root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch
+    experiments_root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163
+    models: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\models
+    training_states: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\training_states
+    log: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163
+    visualization: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_163\visualization
+  ]
+  train:[
+    optim_g:[
+      type: AdamW
+      lr: 0.01
+      weight_decay: [0.1, 0.0001, 0.001]
+      betas: [0.9, 0.9]
+    ]
+    scheduler:[
+      type: TrueCosineAnnealingLR
+      T_max: 1000
+      eta_min: 0.0001
+    ]
+    total_iter: 1000
+    warmup_iter: -1
+    pixel_opt:[
+      type: L1Loss
+      loss_weight: 1
+      reduction: mean
+    ]
+    resume_train: False
+  ]
+  val:[
+    val_freq: 10000.0
+    save_img: True
+    metrics:[
+      psnr:[
+        type: calculate_psnr
+        crop_border: 0
+        test_y_channel: False
+      ]
+      ssim:[
+        type: calculate_ssim
+        crop_border: 0
+        test_y_channel: False
+      ]
+    ]
+  ]
+  logger:[
+    print_freq: 200
+    save_checkpoint: True
+    use_tb_logger: False
+    wandb:[
+      project: None
+      resume_id: None
+    ]
+  ]
+  dist_params:[
+    backend: nccl
+    port: 29500
+  ]
+  is_train: True
+  dist: False
+  rank: 0
+  world_size: 1
+
+2026-11-20 17:48:55,923 INFO: Dataset INRTrainDataset - INR_Train is created.
+2026-11-20 17:48:55,923 INFO: Number of train images/folders in INR_Train: 1
+2026-11-20 17:48:55,923 INFO: Dataset INRInferenceDataset - INR_Inference is created.
+2026-11-20 17:48:55,924 INFO: Number of val images/folders in INR_Inference: 9
+2026-11-20 17:48:56,906 INFO: Model [CNNINRSplitWindModel] is created.
+2026-11-20 17:48:56,906 INFO: Start training for style:  Before Edit: a0075-jn_20080814_New_York_City_042, and After Edit : a0075-jn_20080814_New_York_City_042 for iter number: 1000
+2026-11-20 17:49:22,921 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     200, lr:(9.064e-03,)] [eta: 0:01:47, l_pix: 3.2528e-02 
+2026-11-20 17:49:48,704 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     400, lr:(6.594e-03,)] [eta: 0:01:19, l_pix: 2.4883e-02 
+2026-11-20 17:50:14,511 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     600, lr:(3.535e-03,)] [eta: 0:00:52, l_pix: 2.2381e-02 
+2026-11-20 17:50:40,383 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     800, lr:(1.055e-03,)] [eta: 0:00:25, l_pix: 2.0513e-02 
+2026-11-20 17:51:06,135 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:   1,000, lr:(1.000e-04,)] [eta: 0:00:00, l_pix: 2.0534e-02 
+2026-11-20 17:51:06,262 INFO: Saving model for for style: Before Edit: a0075-jn_20080814_New_York_City_042, and After Edit : a0075-jn_20080814_New_York_City_042 for iter number: 1000
+2026-11-20 17:51:07,604 INFO: Validation a0001-jmac_DSC1459, 		 # psnr: 17.7657	 # ssim: 0.8391
+2026-11-20 17:51:09,063 INFO: Validation a0004-jmac_MG_1384, 		 # psnr: 20.0952	 # ssim: 0.5543
+2026-11-20 17:51:10,487 INFO: Validation a0017-050710_031618__MG_3496, 		 # psnr: 14.2299	 # ssim: 0.2653
+2026-11-20 17:51:11,838 INFO: Validation a0020-jmac_MG_6225, 		 # psnr: 17.1978	 # ssim: 0.7525
+2026-11-20 17:51:13,198 INFO: Validation a0021-07-11-28-at-09h22m57s-_MG_7427, 		 # psnr: 18.5198	 # ssim: 0.8012
+2026-11-20 17:51:14,548 INFO: Validation a0041-IMG_4972, 		 # psnr: 22.6510	 # ssim: 0.8088
+2026-11-20 17:51:15,986 INFO: Validation a0045-20050320_081337__E6B1177, 		 # psnr: 20.0428	 # ssim: 0.7796
+2026-11-20 17:51:17,367 INFO: Validation a0050-_DSC0006, 		 # psnr: 20.4419	 # ssim: 0.8036
+2026-11-20 17:51:18,730 INFO: Validation a0063-IMG_4185, 		 # psnr: 22.2182	 # ssim: 0.8043
+2026-11-20 17:51:18,730 INFO: End of training. Time consumed: 0:02:21
+2026-11-20 17:51:18,730 INFO: Final Results, 		 # psnr: 19.2403	 # ssim: 0.7121

@@ -1,0 +1,150 @@
+2026-11-20 17:35:06,664 INFO: 
+                ____                _       _____  ____
+               / __ ) ____ _ _____ (_)_____/ ___/ / __ \
+              / __  |/ __ `// ___// // ___/\__ \ / /_/ /
+             / /_/ // /_/ /(__  )/ // /__ ___/ // _, _/
+            /_____/ \__,_//____//_/ \___//____//_/ |_|
+     ______                   __   __                 __      __
+    / ____/____   ____   ____/ /  / /   __  __ _____ / /__   / /
+   / / __ / __ \ / __ \ / __  /  / /   / / / // ___// //_/  / /
+  / /_/ // /_/ // /_/ // /_/ /  / /___/ /_/ // /__ / /<    /_/
+  \____/ \____/ \____/ \____/  /_____/\____/ \___//_/|_|  (_)
+    
+Version Information: 
+	BasicSR: 1.0.0+unknown
+	PyTorch: 2.3.1+cpu
+	TorchVision: 0.18.1+cpu
+2026-11-20 17:35:06,665 INFO: 
+  name: demo_preset_146
+  model_type: CNNINRSplitWindModel
+  scale: 1
+  num_gpu: 0
+  manual_seed: 42
+  datasets:[
+    train:[
+      name: INR_Train
+      type: INRTrainDataset
+      style_natural: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\natural\\a0075-jn_20080814_New_York_City_042.jpg']
+      style_output: ['D:\\UOM\\Semester 5\\Computer Vision\\Project\\dataset\\Benchmark\\Test_References\\Presets\\Preset_146\\a0075-jn_20080814_New_York_City_042.jpg']
+      sample_rate: 1
+      window_size: 12
+      Windows_batch_size: 484
+      io_backend:[
+        type: disk
+      ]
+      phase: train
+      scale: 1
+      samples_batch_size: 69696
+    ]
+    val:[
+      name: INR_Inference
+      type: INRInferenceDataset
+      inp_natural: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_146\input
+      io_backend:[
+        type: disk
+      ]
+      inp_gt: D:\UOM\Semester 5\Computer Vision\Project\demo\demo_work\Preset_146\ground_truth
+      phase: val
+      scale: 1
+    ]
+  ]
+  network_g:[
+    type: CNNDWSplitSiren
+    n_input_p: 2
+    n_input_s: 3
+    n_output_dims: 3
+    sin_w: 1
+    n_neurons: 64
+    n_hidden_p: 1
+    n_hidden_s: 1
+    n_hidden_m: 1
+    use_skip: True
+  ]
+  path:[
+    pretrain_network_g: None
+    strict_load_g: True
+    resume_state: None
+    root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch
+    experiments_root: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_146
+    models: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_146\models
+    training_states: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_146\training_states
+    log: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_146
+    visualization: D:\UOM\Semester 5\Computer Vision\Project\InRetouch\experiments\demo_preset_146\visualization
+  ]
+  train:[
+    optim_g:[
+      type: AdamW
+      lr: 0.01
+      weight_decay: [0.1, 0.0001, 0.001]
+      betas: [0.9, 0.9]
+    ]
+    scheduler:[
+      type: TrueCosineAnnealingLR
+      T_max: 1000
+      eta_min: 0.0001
+    ]
+    total_iter: 1000
+    warmup_iter: -1
+    pixel_opt:[
+      type: L1Loss
+      loss_weight: 1
+      reduction: mean
+    ]
+    resume_train: False
+  ]
+  val:[
+    val_freq: 10000.0
+    save_img: True
+    metrics:[
+      psnr:[
+        type: calculate_psnr
+        crop_border: 0
+        test_y_channel: False
+      ]
+      ssim:[
+        type: calculate_ssim
+        crop_border: 0
+        test_y_channel: False
+      ]
+    ]
+  ]
+  logger:[
+    print_freq: 200
+    save_checkpoint: True
+    use_tb_logger: False
+    wandb:[
+      project: None
+      resume_id: None
+    ]
+  ]
+  dist_params:[
+    backend: nccl
+    port: 29500
+  ]
+  is_train: True
+  dist: False
+  rank: 0
+  world_size: 1
+
+2026-11-20 17:35:06,665 INFO: Dataset INRTrainDataset - INR_Train is created.
+2026-11-20 17:35:06,665 INFO: Number of train images/folders in INR_Train: 1
+2026-11-20 17:35:06,665 INFO: Dataset INRInferenceDataset - INR_Inference is created.
+2026-11-20 17:35:06,666 INFO: Number of val images/folders in INR_Inference: 8
+2026-11-20 17:35:07,804 INFO: Model [CNNINRSplitWindModel] is created.
+2026-11-20 17:35:07,804 INFO: Start training for style:  Before Edit: a0075-jn_20080814_New_York_City_042, and After Edit : a0075-jn_20080814_New_York_City_042 for iter number: 1000
+2026-11-20 17:35:30,441 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     200, lr:(9.064e-03,)] [eta: 0:01:34, l_pix: 2.5266e-02 
+2026-11-20 17:35:53,415 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     400, lr:(6.594e-03,)] [eta: 0:01:10, l_pix: 2.2222e-02 
+2026-11-20 17:36:16,499 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     600, lr:(3.535e-03,)] [eta: 0:00:46, l_pix: 1.9236e-02 
+2026-11-20 17:36:39,661 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:     800, lr:(1.055e-03,)] [eta: 0:00:23, l_pix: 1.8923e-02 
+2026-11-20 17:37:02,980 INFO: [demo_..][Current Img:  1, Total Imgs:  1, iter:   1,000, lr:(1.000e-04,)] [eta: 0:00:00, l_pix: 1.7909e-02 
+2026-11-20 17:37:03,097 INFO: Saving model for for style: Before Edit: a0075-jn_20080814_New_York_City_042, and After Edit : a0075-jn_20080814_New_York_City_042 for iter number: 1000
+2026-11-20 17:37:04,295 INFO: Validation a0004-jmac_MG_1384, 		 # psnr: 21.4404	 # ssim: 0.8448
+2026-11-20 17:37:05,501 INFO: Validation a0017-050710_031618__MG_3496, 		 # psnr: 12.5570	 # ssim: 0.6486
+2026-11-20 17:37:06,694 INFO: Validation a0020-jmac_MG_6225, 		 # psnr: 22.3161	 # ssim: 0.9065
+2026-11-20 17:37:07,900 INFO: Validation a0021-07-11-28-at-09h22m57s-_MG_7427, 		 # psnr: 23.3705	 # ssim: 0.8825
+2026-11-20 17:37:09,107 INFO: Validation a0041-IMG_4972, 		 # psnr: 23.9773	 # ssim: 0.8835
+2026-11-20 17:37:10,312 INFO: Validation a0045-20050320_081337__E6B1177, 		 # psnr: 21.1207	 # ssim: 0.9203
+2026-11-20 17:37:11,567 INFO: Validation a0050-_DSC0006, 		 # psnr: 20.4796	 # ssim: 0.5711
+2026-11-20 17:37:12,788 INFO: Validation a0063-IMG_4185, 		 # psnr: 21.4115	 # ssim: 0.8472
+2026-11-20 17:37:12,788 INFO: End of training. Time consumed: 0:02:04
+2026-11-20 17:37:12,788 INFO: Final Results, 		 # psnr: 20.8341	 # ssim: 0.8131
